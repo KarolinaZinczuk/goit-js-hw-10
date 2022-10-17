@@ -17,13 +17,13 @@ function onCountryInput() {
 
     const name = countryInput.value.trim();
     if (name === ``) {
-        return (countryList.innerHTML = ``), (countryInfo.innerHTML = ``);
+        return clearCountryList(), clearCountryInfo();
     }
 
     fetchCountries(name)
         .then(country => {
-        countryList.innerHTML = ``;
-        countryInfo.innerHTML = ``;
+        clearCountryList(),
+        clearCountryInfo();
 
         if (country.length === 1) {
             countryInfo.insertAdjacentHTML(`beforeend`, markupCountryInfo(country));
@@ -35,6 +35,14 @@ function onCountryInput() {
     })
 
     .catch(wrongNameAlert);
+}
+
+function clearCountryList() {
+    countryList.innerHTML = ``;
+}
+
+function clearCountryInfo() {
+    countryInfo.innerHTML = ``;
 }
 
 function tooManyMatchesAlert() {
